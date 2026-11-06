@@ -107,4 +107,4 @@
       sendMessage(button.dataset.question || "");
     });
   });
-})();<script src="chatbot.js"></script>
+})();
