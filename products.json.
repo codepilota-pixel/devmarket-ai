@@ -1,0 +1,122 @@
+[
+{
+"id": "ai-code-review",
+"name": "AI Code Review Toolkit",
+"category": "Development",
+"price": 49,
+"currency": "USD",
+"icon": "🤖",
+"description": "Professional resources for code quality analysis, code reviews and developer productivity.",
+"features": ["Code review templates", "Python code analysis examples", "Quality checklists", "Developer documentation"],
+"status": "coming_soon",
+"download_available": false
+},
+{
+"id": "website-security-audit",
+"name": "Website Security Audit Toolkit",
+"category": "Security",
+"price": 59,
+"currency": "USD",
+"icon": "🔐",
+"description": "Practical resources for website security assessments and security improvement.",
+"features": ["Security audit checklist", "HTTP security header guide", "Risk assessment templates", "Security documentation"],
+"status": "coming_soon",
+"download_available": false
+},
+{
+"id": "api-testing-toolkit",
+"name": "API Testing Toolkit",
+"category": "Development",
+"price": 69,
+"currency": "USD",
+"icon": "🔗",
+"description": "Developer resources for API testing, validation and integration workflows.",
+"features": ["API testing examples", "Request templates", "Response validation guide", "Testing documentation"],
+"status": "coming_soon",
+"download_available": false
+},
+{
+"id": "python-automation",
+"name": "Python Automation Toolkit",
+"category": "Automation",
+"price": 39,
+"currency": "USD",
+"icon": "🐍",
+"description": "Python automation resources for repetitive business and development tasks.",
+"features": ["Automation scripts", "Practical examples", "Installation guide", "Source code documentation"],
+"status": "coming_soon",
+"download_available": false
+},
+{
+"id": "cicd-automation",
+"name": "CI/CD Automation Toolkit",
+"category": "Development",
+"price": 79,
+"currency": "USD",
+"icon": "⚙️",
+"description": "Resources for building and improving continuous integration and deployment workflows.",
+"features": ["Pipeline examples", "Deployment templates", "Workflow documentation", "Configuration guides"],
+"status": "coming_soon",
+"download_available": false
+},
+{
+"id": "performance-analyzer",
+"name": "Website Performance Analyzer",
+"category": "Development",
+"price": 49,
+"currency": "USD",
+"icon": "⚡",
+"description": "Resources for website performance measurement and optimization.",
+"features": ["Performance checklists", "Optimization examples", "Testing documentation", "Reporting templates"],
+"status": "coming_soon",
+"download_available": false
+},
+{
+"id": "saas-starter-kit",
+"name": "SaaS Starter Kit",
+"category": "Business",
+"price": 129,
+"currency": "USD",
+"icon": "🚀",
+"description": "Starter resources and templates for planning and developing software products.",
+"features": ["Project structure guide", "Product planning templates", "Architecture examples", "Documentation"],
+"status": "coming_soon",
+"download_available": false
+},
+{
+"id": "dashboard-templates",
+"name": "Professional Dashboard Templates",
+"category": "Business",
+"price": 39,
+"currency": "USD",
+"icon": "📊",
+"description": "Professional dashboard layout and interface templates.",
+"features": ["Dashboard layouts", "UI components", "Responsive design examples", "Customization guide"],
+"status": "coming_soon",
+"download_available": false
+},
+{
+"id": "database-backup",
+"name": "Database Backup Toolkit",
+"category": "Security",
+"price": 49,
+"currency": "USD",
+"icon": "💾",
+"description": "Resources for database backup planning, recovery and maintenance.",
+"features": ["Backup examples", "Recovery checklist", "Maintenance guide", "Documentation"],
+"status": "coming_soon",
+"download_available": false
+},
+{
+"id": "business-api-integration",
+"name": "Business API Integration Toolkit",
+"category": "Business",
+"price": 89,
+"currency": "USD",
+"icon": "🏢",
+"description": "Resources for connecting business applications through APIs.",
+"features": ["Integration examples", "API documentation templates", "Configuration guides", "Testing checklist"],
+"status": "coming_soon",
+"download_available": false
+}
+]
