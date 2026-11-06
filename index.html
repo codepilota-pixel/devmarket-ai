@@ -1,0 +1,55 @@
+<p>${p.description}</p>
+<div class="price">$${p.price.toFixed(2)}</div>
+<div class="card-footer">
+<button class="btn" onclick="addCart(${p.id})">Add to Cart</button>
+<button class="btn secondary" onclick="saveProduct(${p.id})">${saved.includes(p.id)?"♥":"♡"}</button>
+</div>
+</div>).join("")||'<div class="empty">No products found.</div>';
+}
+
+function addCart(id){
+let p=products.find(x=>x.id===id);
+if(!cart.find(x=>x.id===id))cart.push({...p});
+updateCart();
+}
+function updateCart(){
+document.getElementById("cartCount").textContent=cart.length;
+document.getElementById("cartItems").innerHTML=cart.length?cart.map(p=>
+<div class="cart-item"><span>${p.name}<br><b>$${p.price.toFixed(2)}</b></span><button class="btn secondary" onclick="removeCart(${p.id})">Remove</button></div>).join(""):'<div class="empty">Your cart is empty.</div>';
+let total=cart.reduce((s,p)=>s+p.price,0);
+document.getElementById("total").textContent="$"+total.toFixed(2);
+}
+function removeCart(id){cart=cart.filter(p=>p.id!==id);updateCart()}
+function openCart(){document.getElementById("cart").classList.add("open");document.getElementById("overlay").classList.add("show")}
+function closeCart(){document.getElementById("cart").classList.remove("open");document.getElementById("overlay").classList.remove("show")}
+function saveProduct(id){
+saved=saved.includes(id)?saved.filter(x=>x!==id):[...saved,id];
+localStorage.setItem("devmarket_saved",JSON.stringify(saved));
+renderProducts();
+}
+function toggleSaved(){
+let ids=saved;
+document.getElementById("search").value="";
+document.getElementById("category").value="all";
+renderProducts();
+if(ids.length){document.getElementById("productGrid").innerHTML=products.filter(p=>ids.includes(p.id)).map(p=><div class="card"><div class="product-icon">${p.icon}</div><h3>${p.name}</h3><p>${p.description}</p><div class="price">$${p.price}</div><button class="btn" onclick="addCart(${p.id})">Add to Cart</button></div>`).join("")}
+else document.getElementById("productGrid").innerHTML='<div class="empty">No saved products yet.</div>';
+document.getElementById("products").scrollIntoView();
+}
+function checkout(){
+if(!cart.length){alert("Your cart is empty.");return}
+closeCart();
+document.getElementById("orderSummary").innerHTML="<p>Items: "+cart.length+"<br>Total: $"+cart.reduce((s,p)=>s+p.price,0).toFixed(2)+"</p><p class='small'>All products are currently marked Coming Soon. No payment can be made yet.</p>";
+document.getElementById("checkoutModal").classList.add("show");
+}
+function closeCheckout(){document.getElementById("checkoutModal").classList.remove("show")}
+function submitOrder(e){
+e.preventDefault();
+alert("Thank you. This is a demo only. No order or payment has been submitted. Contact codepilota@gmail.com for information.");
+closeCheckout();
+}
+renderProducts();
+updateCart();
+</script>
+</body>
+</html>
