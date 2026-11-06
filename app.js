@@ -1,3 +1,4 @@
+"use strict";
 
 let PRODUCTS = [];
 let activeCategory = "All";
@@ -24,17 +25,9 @@ function esc(value) {
   })[char]);
 }
 
-function toast(message) {
-  const element = document.getElementById("toast");
-  element.textContent = message;
-  element.classList.add("show");
-
-  setTimeout(() => {
-    element.classList.remove("show");
-  }, 3000);
-}
-
 function render() {
+  if (!grid || !search) return;
+
   const query = (search.value || "").toLowerCase().trim();
 
   const items = PRODUCTS.filter(product => {
@@ -42,12 +35,14 @@ function render() {
       activeCategory === "All" ||
       product.category === activeCategory;
 
-    const searchMatch =
-      ${product.name} ${product.description} ${product.category}
-        .toLowerCase()
-        .includes(query);
+    const searchableText = [
+      product.name,
+      product.description,
+      product.category,
+      ...(Array.isArray(product.features) ? product.features : [])
+    ].join(" ").toLowerCase();
 
-    return categoryMatch && searchMatch;
+    return categoryMatch && searchableText.includes(query);
   });
 
   if (!items.length) {
@@ -58,14 +53,17 @@ function render() {
 
   grid.innerHTML = items.map(product => {
     const comingSoon = product.status === "coming_soon";
+    const icon = product.icon  icons[product.category]  "✦";
+    const price = Number(product.price);
+    const formattedPrice = Number.isFinite(price)
+      ? price.toFixed(2)
+      : "Contact us";
 
     return 
       <article class="product">
         <div class="product-top">
           <span class="pill">${esc(product.category)}</span>
-          <span class="product-icon">
-            ${esc(product.icon || icons[product.category] || "✦")}
-          </span>
+          <span class="product-icon">${esc(icon)}</span>
         </div>
 
         <h3>${esc(product.name)}</h3>
@@ -74,8 +72,8 @@ function render() {
 
         <div class="product-bottom">
           <div class="price">
-            ${Number(product.price).toFixed(2)}
-            <small>USDT</small>
+            ${formattedPrice}
+            <small>${esc(product.currency || "USD")}</small>
           </div>
 
           <button
@@ -93,11 +91,16 @@ function render() {
 }
 
 async function init() {
-  document.getElementById("year").textContent =
-    new Date().getFullYear();
+  const year = document.getElementById("year");
+
+  if (year) {
+    year.textContent = new Date().getFullYear();
+  }
 
   try {
-    const response = await fetch("/products.json");
+    const response = await fetch("products.json", {
+      cache: "no-store"
+    });
 
     if (!response.ok) {
       throw new Error("Could not load products.");
@@ -113,21 +116,25 @@ async function init() {
     render();
 
   } catch (error) {
-    console.error(error);
+    console.error("DevMarket catalog error:", error);
 
-    grid.innerHTML =
-      '<div class="empty">Products could not be loaded. Please refresh.</div>';
+    if (grid) {
+      grid.innerHTML =
+        '<div class="empty">Products could not be loaded. Please refresh.</div>';
+    }
   }
 }
 
-search.addEventListener("input", render);
+if (search) {
+  search.addEventListener("input", render);
+}
 
 document.querySelectorAll(".cat").forEach(button => {
   button.addEventListener("click", () => {
     document.querySelector(".cat.active")?.classList.remove("active");
 
     button.classList.add("active");
-    activeCategory = button.dataset.cat;
+    activeCategory = button.dataset.cat || "All";
 
     render();
   });
