@@ -1,58 +1,38 @@
-
-<section id="products">
+<section id="features" class="features-section">
       <div class="container">
         <div class="section-heading">
-          <h2>Explore our marketplace</h2>
-          <p>Find the digital resources that fit your next project.</p>
+          <span class="eyebrow">WHY DEVMARKET AI</span>
+          <h2>Tools that move ideas forward.</h2>
+          <p>A focused marketplace for useful digital solutions.</p>
         </div>
 
-        <div class="toolbar">
-          <input id="search" type="search" placeholder="Search digital products..." aria-label="Search products">
-          <div class="categories">
-            <button class="cat active" data-cat="All">All</button>
-            <button class="cat" data-cat="Development">Development</button>
-            <button class="cat" data-cat="Security">Security</button>
-            <button class="cat" data-cat="Automation">Automation</button>
-            <button class="cat" data-cat="Business">Business</button>
-          </div>
-        </div>
+        <div class="features">
+          <article class="feature">
+            <div class="symbol">⚙</div>
+            <h3>Practical digital tools</h3>
+            <p>Resources for software development, automation and business workflows.</p>
+          </article>
 
-        <div id="product-grid">
-          <div class="empty">Loading products...</div>
-        </div>
+          <article class="feature">
+            <div class="symbol">⌕</div>
+            <h3>Simple discovery</h3>
+            <p>Find relevant products through search and organized categories.</p>
+          </article>
 
-        <div class="notice">
-          Product availability: Our marketplace is being prepared.
-          Products marked as coming soon are not yet available for purchase
-          or download. Checkout will be enabled after secure payment
-          verification and digital delivery are configured.
+          <article class="feature">
+            <div class="symbol">♢</div>
+            <h3>Security first</h3>
+            <p>Secure payment verification and protected digital delivery are planned before launch.</p>
+          </article>
         </div>
       </div>
     </section>
 
-    <section id="features">
-      <div class="container">
-        <div class="section-heading">
-          <h2>Made for digital progress</h2>
-          <p>A marketplace focused on useful resources and straightforward experiences.</p>
-        </div>
-        <div class="features">
-          <article class="feature">
-            <div class="symbol">⚙️</div>
-            <h3>Practical tools</h3>
-            <p>Explore resources for software development, automation and business workflows.</p>
-          </article>
-          <article class="feature">
-            <div class="symbol">🔎</div>
-            <h3>Easy discovery</h3>
-            <p>Search and browse products by category to find relevant resources.</p>
-          </article>
-          <article class="feature">
-            <div class="symbol">🔒</div>
-            <h3>Secure checkout planned</h3>
-            <p>Payment and automatic delivery will be introduced after the required security checks.</p>
-          </article>
-        </div>
+    <section class="cta-section">
+      <div class="container cta-content">
+        <span class="eyebrow">YOUR NEXT PROJECT STARTS HERE</span>
+        <h2>Find the right tools.<br>Make something great.</h2>
+        <a class="primary-button" href="#products">Browse products ↗</a>
       </div>
     </section>
   </main>
@@ -60,17 +40,29 @@
   <footer id="contact">
     <div class="container footer-content">
       <div>
-        <strong>DevMarket AI</strong>
+        <a class="brand footer-brand" href="index.html">
+          <img src="logo.svg" alt="" width="32" height="32">
+          <span>DevMarket <strong>AI</strong></span>
+        </a>
         <p>Digital products for a smarter workflow.</p>
       </div>
-      <div>
-        <a href="mailto:codepilota@gmail.com">Contact support</a>
-        <p>© <span id="year"></span> DevMarket AI. All rights reserved.</p>
+
+      <div class="footer-links">
+        <a href="faq.html">FAQ</a>
+        <a href="contact.html">Contact</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="mailto:codepilota@gmail.com">Support email</a>
       </div>
+
+      <p class="copyright">
+        © <span id="year"></span> DevMarket AI. All rights reserved.
+      </p>
     </div>
   </footer>
 
   <div id="toast" role="status" aria-live="polite"></div>
-  <script src="/app.js"></script>
+
+  <script src="app.js"></script>
 </body>
 </html>
