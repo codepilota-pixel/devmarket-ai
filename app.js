@@ -1,0 +1,11 @@
+let PRODUCTS=[], activeCategory="All";
+const icons={"Development":"⌘","Security":"◇","Automation":"⚡","Business":"▦","Analytics":"◉","Design":"◫"};
+const grid=document.getElementById("product-grid"), search=document.getElementById("search");
+function toast(s){const t=document.getElementById("toast");t.textContent=s;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),3000)}
+function render(){const q=(search.value||"").toLowerCase();const items=PRODUCTS.filter(p=>(activeCategory==="All"||p.category===activeCategory)&&(`${p.name} ${p.description} ${p.category}`).toLowerCase().includes(q));grid.innerHTML=items.length?items.map(p=>`<article class="product"><div class="product-top"><span class="pill">${p.tag||p.category}</span><span class="product-icon">${icons[p.category]||"✦"}</span></div><h3>${esc(p.name)}</h3><p>${esc(p.description)}</p><div class="product-bottom"><div class="price">${Number(p.price).toFixed(2)} <small>USDT</small></div><button class="buy" data-buy="${esc(p.id)}">Buy now →</button></div></article>`).join(""):`<div class="empty">No products match your search.</div>`}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+async function init(){document.getElementById("year").textContent=new Date().getFullYear();try{const r=await fetch("/products.json");if(!r.ok)throw Error();PRODUCTS=await r.json();render()}catch(e){grid.innerHTML='<div class="empty">Products could not be loaded. Please refresh.</div>'}}
+search.addEventListener("input",render);
+document.querySelectorAll(".cat").forEach(b=>b.addEventListener("click",()=>{document.querySelector(".cat.active")?.classList.remove("active");b.classList.add("active");activeCategory=b.dataset.cat;render()}));
+grid.addEventListener("click",async e=>{const b=e.target.closest("[data-buy]");if(!b)return;b.disabled=true;b.textContent="Creating order…";try{const r=await fetch("/.netlify/functions/create-order",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({productId:b.dataset.buy})});const data=await r.json();if(!r.ok)throw Error(data.error||"Checkout is not configured yet.");location.href="/checkout.html?order="+encodeURIComponent(data.orderId)}catch(err){toast(err.message);b.disabled=false;b.textContent="Buy now →"}});
+init();
