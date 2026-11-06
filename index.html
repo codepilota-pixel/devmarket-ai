@@ -1,55 +1,76 @@
-<p>${p.description}</p>
-<div class="price">$${p.price.toFixed(2)}</div>
-<div class="card-footer">
-<button class="btn" onclick="addCart(${p.id})">Add to Cart</button>
-<button class="btn secondary" onclick="saveProduct(${p.id})">${saved.includes(p.id)?"♥":"♡"}</button>
-</div>
-</div>).join("")||'<div class="empty">No products found.</div>';
-}
 
-function addCart(id){
-let p=products.find(x=>x.id===id);
-if(!cart.find(x=>x.id===id))cart.push({...p});
-updateCart();
-}
-function updateCart(){
-document.getElementById("cartCount").textContent=cart.length;
-document.getElementById("cartItems").innerHTML=cart.length?cart.map(p=>
-<div class="cart-item"><span>${p.name}<br><b>$${p.price.toFixed(2)}</b></span><button class="btn secondary" onclick="removeCart(${p.id})">Remove</button></div>).join(""):'<div class="empty">Your cart is empty.</div>';
-let total=cart.reduce((s,p)=>s+p.price,0);
-document.getElementById("total").textContent="$"+total.toFixed(2);
-}
-function removeCart(id){cart=cart.filter(p=>p.id!==id);updateCart()}
-function openCart(){document.getElementById("cart").classList.add("open");document.getElementById("overlay").classList.add("show")}
-function closeCart(){document.getElementById("cart").classList.remove("open");document.getElementById("overlay").classList.remove("show")}
-function saveProduct(id){
-saved=saved.includes(id)?saved.filter(x=>x!==id):[...saved,id];
-localStorage.setItem("devmarket_saved",JSON.stringify(saved));
-renderProducts();
-}
-function toggleSaved(){
-let ids=saved;
-document.getElementById("search").value="";
-document.getElementById("category").value="all";
-renderProducts();
-if(ids.length){document.getElementById("productGrid").innerHTML=products.filter(p=>ids.includes(p.id)).map(p=><div class="card"><div class="product-icon">${p.icon}</div><h3>${p.name}</h3><p>${p.description}</p><div class="price">$${p.price}</div><button class="btn" onclick="addCart(${p.id})">Add to Cart</button></div>`).join("")}
-else document.getElementById("productGrid").innerHTML='<div class="empty">No saved products yet.</div>';
-document.getElementById("products").scrollIntoView();
-}
-function checkout(){
-if(!cart.length){alert("Your cart is empty.");return}
-closeCart();
-document.getElementById("orderSummary").innerHTML="<p>Items: "+cart.length+"<br>Total: $"+cart.reduce((s,p)=>s+p.price,0).toFixed(2)+"</p><p class='small'>All products are currently marked Coming Soon. No payment can be made yet.</p>";
-document.getElementById("checkoutModal").classList.add("show");
-}
-function closeCheckout(){document.getElementById("checkoutModal").classList.remove("show")}
-function submitOrder(e){
-e.preventDefault();
-alert("Thank you. This is a demo only. No order or payment has been submitted. Contact codepilota@gmail.com for information.");
-closeCheckout();
-}
-renderProducts();
-updateCart();
-</script>
+<section id="products">
+      <div class="container">
+        <div class="section-heading">
+          <h2>Explore our marketplace</h2>
+          <p>Find the digital resources that fit your next project.</p>
+        </div>
+
+        <div class="toolbar">
+          <input id="search" type="search" placeholder="Search digital products..." aria-label="Search products">
+          <div class="categories">
+            <button class="cat active" data-cat="All">All</button>
+            <button class="cat" data-cat="Development">Development</button>
+            <button class="cat" data-cat="Security">Security</button>
+            <button class="cat" data-cat="Automation">Automation</button>
+            <button class="cat" data-cat="Business">Business</button>
+          </div>
+        </div>
+
+        <div id="product-grid">
+          <div class="empty">Loading products...</div>
+        </div>
+
+        <div class="notice">
+          Product availability: Our marketplace is being prepared.
+          Products marked as coming soon are not yet available for purchase
+          or download. Checkout will be enabled after secure payment
+          verification and digital delivery are configured.
+        </div>
+      </div>
+    </section>
+
+    <section id="features">
+      <div class="container">
+        <div class="section-heading">
+          <h2>Made for digital progress</h2>
+          <p>A marketplace focused on useful resources and straightforward experiences.</p>
+        </div>
+        <div class="features">
+          <article class="feature">
+            <div class="symbol">⚙️</div>
+            <h3>Practical tools</h3>
+            <p>Explore resources for software development, automation and business workflows.</p>
+          </article>
+          <article class="feature">
+            <div class="symbol">🔎</div>
+            <h3>Easy discovery</h3>
+            <p>Search and browse products by category to find relevant resources.</p>
+          </article>
+          <article class="feature">
+            <div class="symbol">🔒</div>
+            <h3>Secure checkout planned</h3>
+            <p>Payment and automatic delivery will be introduced after the required security checks.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="contact">
+    <div class="container footer-content">
+      <div>
+        <strong>DevMarket AI</strong>
+        <p>Digital products for a smarter workflow.</p>
+      </div>
+      <div>
+        <a href="mailto:codepilota@gmail.com">Contact support</a>
+        <p>© <span id="year"></span> DevMarket AI. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <div id="toast" role="status" aria-live="polite"></div>
+  <script src="/app.js"></script>
 </body>
 </html>
